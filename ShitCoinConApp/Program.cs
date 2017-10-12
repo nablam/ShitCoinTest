@@ -12,31 +12,62 @@ namespace ShitCoinConApp
 {
     class Program
     {
+        static string apiKey = "yourkey ";
+        static string secretKey = "where";
         static void Main(string[] args)
         {
-            //using (var ws = new WebSocket("ws://api.hitbtc.com"))
-            //{
-            //    ws.OnMessage += (sender, e) =>
-            //      Console.WriteLine(e.Data);
-
-            //    ws.Connect();
-            //    Console.ReadKey(true);
-            //}
+ 
+           // ExampleGet();
+            TryGetBal();
+        }
 
 
-            //var data = GettingStarted.FromJson(jsonString);
-            #region WHERE
-           // this will work when we get an appkey and secret key
+        static void TryGetBal() {
+     
 
-            const string apiKey = "yourkey ";
-            const string secretKey = "yoursecret";
+            var client = new RestClient("https://api.hitbtc.com");
+
+            var request = new RestRequest("/api/1/trading/balance", Method.GET);
+            request.AddParameter("nonce", GetNonce());
+            request.AddParameter("apikey", apiKey);
+
+            string sign = CalculateSignature(client.BuildUri(request).PathAndQuery, secretKey);
+            request.AddHeader("X-Signature", sign);
+
+            var response = client.Execute(request);
+
+            Console.WriteLine(response.Content);
+        }
+
+   
+        private static long GetNonce()
+    {
+        return DateTime.Now.Ticks * 10 / TimeSpan.TicksPerMillisecond; // use millisecond timestamp or whatever you want
+    }
+
+        public static string CalculateSignature(string text, string secretKey)
+    {
+        using (var hmacsha512 = new HMACSHA512(Encoding.UTF8.GetBytes(secretKey)))
+        {
+            hmacsha512.ComputeHash(Encoding.UTF8.GetBytes(text));
+            return string.Concat(hmacsha512.Hash.Select(b => b.ToString("x2")).ToArray()); // minimalistic hex-encoding and lower case
+        }
+    }
+
+
+
+        private static void ExampleGet() {
+            // this will work when we get an appkey and secret key
+
+            //const string apiKey = "yourkey ";
+            //const string secretKey = "yoursecret";
 
             var client = new RestClient("https://api.hitbtc.com");
 
             //            var request = new RestRequest("/api/1/trading/balance", Method.GET);
             var request = new RestRequest("/api/1/public/symbols", Method.GET);
 
-            
+
             request.AddParameter("nonce", GetNonce());
             request.AddParameter("apikey", apiKey);
 
@@ -47,22 +78,7 @@ namespace ShitCoinConApp
 
             JsoSymbolnHelper SymbolData = JsoSymbolnHelper.FromJson(response.Content.ToString());
 
-            //example of using linq to getfirst element in enumeraion
-            //string _symbol      = SymbolData.Symbols.FirstOrDefault().OtherSymbol; 
-            //string _step        = SymbolData.Symbols.FirstOrDefault().Step;
-            //string _lot         = SymbolData.Symbols.FirstOrDefault().Lot;
-            //string _currency    = SymbolData.Symbols.FirstOrDefault().Currency;
-            //string _commodity   = SymbolData.Symbols.FirstOrDefault().Commodity;
-            //string _takeLiqRt   = SymbolData.Symbols.FirstOrDefault().TakeLiquidityRate;
-            //string _provideLiqRt = SymbolData.Symbols.FirstOrDefault().ProvideLiquidityRate
-
-
             Symbolfoo(SymbolData);
-
-            //            Console.WriteLine(response.Content);
-
-            #endregion
-
         }
 
         private static void Symbolfoo(JsoSymbolnHelper ArgJsonSymbHelper) {
@@ -89,19 +105,7 @@ namespace ShitCoinConApp
 
         }
 
-        private static long GetNonce()
-            {
-                return DateTime.Now.Ticks * 10 / TimeSpan.TicksPerMillisecond; // use millisecond timestamp or whatever you want
-            }
 
-            public static string CalculateSignature(string text, string secretKey)
-            {
-                using (var hmacsha512 = new HMACSHA512(Encoding.UTF8.GetBytes(secretKey)))
-                {
-                    hmacsha512.ComputeHash(Encoding.UTF8.GetBytes(text));
-                    return string.Concat(hmacsha512.Hash.Select(b => b.ToString("x2")).ToArray()); // minimalistic hex-encoding and lower case
-                }
-            }
         
     }
 }
