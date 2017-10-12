@@ -14,36 +14,78 @@ namespace ShitCoinConApp
     {
         static void Main(string[] args)
         {
-            using (var ws = new WebSocket("ws://api.hitbtc.com"))
-            {
-                ws.OnMessage += (sender, e) =>
-                  Console.WriteLine(e.Data);
+            //using (var ws = new WebSocket("ws://api.hitbtc.com"))
+            //{
+            //    ws.OnMessage += (sender, e) =>
+            //      Console.WriteLine(e.Data);
 
-                ws.Connect();
-                Console.ReadKey(true);
-            }
+            //    ws.Connect();
+            //    Console.ReadKey(true);
+            //}
 
 
+            //var data = GettingStarted.FromJson(jsonString);
             #region WHERE
-            //this will work when we get an appkey and secret key
+           // this will work when we get an appkey and secret key
 
-            //const string apiKey = "xxx";
-            //const string secretKey = "yyy";
+            const string apiKey = "yourkey ";
+            const string secretKey = "yoursecret";
 
-            //var client = new RestClient("https://api.hitbtc.com");
+            var client = new RestClient("https://api.hitbtc.com");
 
-            //var request = new RestRequest("/api/1/trading/balance", Method.GET);
-            //request.AddParameter("nonce", GetNonce());
-            //request.AddParameter("apikey", apiKey);
+            //            var request = new RestRequest("/api/1/trading/balance", Method.GET);
+            var request = new RestRequest("/api/1/public/symbols", Method.GET);
 
-            //string sign = CalculateSignature(client.BuildUri(request).PathAndQuery, secretKey);
-            //request.AddHeader("X-Signature", sign);
+            
+            request.AddParameter("nonce", GetNonce());
+            request.AddParameter("apikey", apiKey);
 
-            //var response = client.Execute(request);
+            string sign = CalculateSignature(client.BuildUri(request).PathAndQuery, secretKey);
+            request.AddHeader("X-Signature", sign);
 
-            //Console.WriteLine(response.Content);
+            var response = client.Execute(request);
+
+            JsoSymbolnHelper SymbolData = JsoSymbolnHelper.FromJson(response.Content.ToString());
+
+            //example of using linq to getfirst element in enumeraion
+            //string _symbol      = SymbolData.Symbols.FirstOrDefault().OtherSymbol; 
+            //string _step        = SymbolData.Symbols.FirstOrDefault().Step;
+            //string _lot         = SymbolData.Symbols.FirstOrDefault().Lot;
+            //string _currency    = SymbolData.Symbols.FirstOrDefault().Currency;
+            //string _commodity   = SymbolData.Symbols.FirstOrDefault().Commodity;
+            //string _takeLiqRt   = SymbolData.Symbols.FirstOrDefault().TakeLiquidityRate;
+            //string _provideLiqRt = SymbolData.Symbols.FirstOrDefault().ProvideLiquidityRate
+
+
+            Symbolfoo(SymbolData);
+
+            //            Console.WriteLine(response.Content);
 
             #endregion
+
+        }
+
+        private static void Symbolfoo(JsoSymbolnHelper ArgJsonSymbHelper) {
+
+            foreach (Symbol smbl in ArgJsonSymbHelper.Symbols) {
+                string _symbol      = smbl.OtherSymbol;
+                string _step        = smbl.Step;
+                string _lot         = smbl.Lot;
+                string _currency    = smbl.Currency;
+                string _commodity   = smbl.Commodity;
+                string _takeLiqRt   = smbl.TakeLiquidityRate;
+                string _provideLiqRt = smbl.ProvideLiquidityRate;
+                Console.WriteLine(_symbol + " " + _step + " " + _lot+ " "+_currency + " " + _takeLiqRt + " "+ _provideLiqRt);
+            }
+            // the jason looks like this
+           // "symbol": "BTCUSD",
+           // "step": "0.01",
+            //"lot": "0.01",
+            //"currency": "USD",
+            //"commodity": "BTC",
+            //"takeLiquidityRate": "0.002",
+            //"provideLiquidityRate": "0.002"
+
 
         }
 

@@ -14,3 +14,19 @@ c:\users\nabil\documents\visual studio 2017\Projects\ShitCoinConApp\ShitCoinConA
 c:\users\nabil\documents\visual studio 2017\Projects\ShitCoinConApp\ShitCoinConApp\obj\Debug\ShitCoinConApp.pdb
 c:\users\nabil\documents\visual studio 2017\Projects\ShitCoinConApp\ShitCoinConApp\bin\Debug\RestSharp.dll
 c:\users\nabil\documents\visual studio 2017\Projects\ShitCoinConApp\ShitCoinConApp\bin\Debug\RestSharp.xml
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\ShitCoinConApp.exe.config
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\ShitCoinConApp.exe
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\ShitCoinConApp.pdb
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\DSharpPlus.dll
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\DSharpPlus.WebSocket.WebSocketSharp.dll
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\Newtonsoft.Json.dll
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\RestSharp.dll
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\websocket-sharp.dll
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\DSharpPlus.xml
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\DSharpPlus.WebSocket.WebSocketSharp.xml
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\Newtonsoft.Json.xml
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\bin\Debug\RestSharp.xml
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\obj\Debug\ShitCoinConApp.csprojResolveAssemblyReference.cache
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\obj\Debug\ShitCoinConApp.csproj.CoreCompileInputs.cache
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\obj\Debug\ShitCoinConApp.exe
+C:\NabilDir\OldProjects\ShitCoinTest\ShitCoinConApp\obj\Debug\ShitCoinConApp.pdb
