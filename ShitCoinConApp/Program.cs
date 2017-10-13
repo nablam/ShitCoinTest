@@ -12,18 +12,18 @@ namespace ShitCoinConApp
 {
     class Program
     {
-        static string apiKey = "yourkey ";
-        static string secretKey = "where";
+
         static void Main(string[] args)
         {
- 
-           // ExampleGet();
+            // ExampleGet();
             TryGetBal();
         }
 
 
         static void TryGetBal() {
-     
+
+            string apiKey = Untracked.ApiKey;
+            string secretKey = Untracked.SecretKey;
 
             var client = new RestClient("https://api.hitbtc.com");
 
@@ -55,7 +55,7 @@ namespace ShitCoinConApp
     }
 
 
-
+      
         private static void ExampleGet() {
             // this will work when we get an appkey and secret key
 
@@ -64,14 +64,11 @@ namespace ShitCoinConApp
 
             var client = new RestClient("https://api.hitbtc.com");
 
-            //            var request = new RestRequest("/api/1/trading/balance", Method.GET);
             var request = new RestRequest("/api/1/public/symbols", Method.GET);
-
-
             request.AddParameter("nonce", GetNonce());
-            request.AddParameter("apikey", apiKey);
+            request.AddParameter("apikey", Untracked.ApiKey);
 
-            string sign = CalculateSignature(client.BuildUri(request).PathAndQuery, secretKey);
+            string sign = CalculateSignature(client.BuildUri(request).PathAndQuery, Untracked.SecretKey);
             request.AddHeader("X-Signature", sign);
 
             var response = client.Execute(request);
@@ -80,7 +77,7 @@ namespace ShitCoinConApp
 
             Symbolfoo(SymbolData);
         }
-
+       
         private static void Symbolfoo(JsoSymbolnHelper ArgJsonSymbHelper) {
 
             foreach (Symbol smbl in ArgJsonSymbHelper.Symbols) {
